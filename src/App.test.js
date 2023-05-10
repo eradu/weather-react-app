@@ -1,8 +1,26 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+
+
+describe("App", () => {
+  it('should render input element', () => {
+      render(
+          <App/>
+      );
+      const inputElement = screen.getByPlaceholderText(/Enter Location/i);
+      expect(inputElement).toBeInTheDocument();
+  });
+
+  it('should be able to type into input', () => {
+    render(
+        <App/>
+    );
+    const inputElement = screen.getByPlaceholderText(/Enter Location/i);
+    fireEvent.click(inputElement)
+    fireEvent.change(inputElement, { target: { value: "Cluj" } })
+        expect(inputElement.value).toBe("Cluj");
+  });
+
 });
